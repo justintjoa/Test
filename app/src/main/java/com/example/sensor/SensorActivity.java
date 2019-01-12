@@ -21,10 +21,14 @@ import android.hardware.SensorManager;
 
 
 public class SensorActivity extends Activity implements SensorEventListener {
-    private final SensorManager mSensorManager;
-    private final Sensor mAccelerometer;
 
-    public SensorActivity() {
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
@@ -47,22 +51,27 @@ public class SensorActivity extends Activity implements SensorEventListener {
             return;
         float mSensorX, mSensorY;
 
+
         switch (getResources().getConfiguration().orientation) {
             case Surface.ROTATION_0:
                 mSensorX = event.values[0];
                 mSensorY = event.values[1];
+                System.out.println("Latitude: " + mSensorX + " Longitude: " + mSensorY);
                 break;
             case Surface.ROTATION_90:
                 mSensorX = -event.values[1];
                 mSensorY = event.values[0];
+                System.out.println("Latitude: " + mSensorX + " Longitude: " + mSensorY);
                 break;
             case Surface.ROTATION_180:
                 mSensorX = -event.values[0];
                 mSensorY = -event.values[1];
+                System.out.println("Latitude: " + mSensorX + " Longitude: " + mSensorY);
                 break;
             case Surface.ROTATION_270:
                 mSensorX = event.values[1];
                 mSensorY = -event.values[0];
+                System.out.println("Latitude: " + mSensorX + " Longitude: " + mSensorY);
         }
     }
 }
